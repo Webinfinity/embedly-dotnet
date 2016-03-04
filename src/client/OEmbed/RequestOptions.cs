@@ -5,6 +5,13 @@
     /// </summary>
     public class RequestOptions
     {
+		public enum EmbedWmode
+		{
+			Window = 0,
+			Opaque = 1,
+			Transparent = 2
+		}
+
         /// <summary>
         /// Gets or sets the maximum width of the content.
         /// </summary>
@@ -85,6 +92,14 @@
 		/// </value>
 		public bool Frame { get; set; }
 
+		/// <summary>
+		/// Gets or sets a value indicating the embed wmode value
+		/// </summary>
+		/// <value>
+		///   <c>EmbedWmode</c> enum.
+		/// </value>
+		public EmbedWmode? Wmode { get; set; }
+
         /// <summary>
         /// Builds query-string parameters based on the request options set
         /// </summary>
@@ -122,6 +137,24 @@
 
 			if (Frame)
 				querystring += "&frame=true";
+
+			if (Wmode.HasValue)
+			{
+				querystring += "&wmode=";
+
+				switch (Wmode.Value)
+				{
+					case EmbedWmode.Window:
+						querystring += "window";
+						break;
+					case EmbedWmode.Opaque:
+						querystring += "opaque";
+						break;
+					case EmbedWmode.Transparent:
+						querystring += "transparent";
+						break;
+				}
+			}
 
             return querystring;
         }
