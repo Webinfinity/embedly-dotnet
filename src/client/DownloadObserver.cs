@@ -18,7 +18,7 @@ namespace Embedly
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
         private readonly IResponseCache _cache;
 
-        private readonly Subject<Result> _results;
+        private readonly ISubject<Result> _results;
         private readonly TimeSpan _timeout;
         private bool _complete; // should complete when no more pending
         private int _count;
@@ -29,7 +29,7 @@ namespace Embedly
         /// <param name="cache">The cache.</param>
         /// <param name="timeout">The timeout.</param>
         /// <param name="results">The results.</param>
-        public DownloadObserver(IResponseCache cache, TimeSpan timeout, Subject<Result> results)
+        public DownloadObserver(IResponseCache cache, TimeSpan timeout, ISubject<Result> results)
         {
             _results = results;
             _timeout = timeout;
